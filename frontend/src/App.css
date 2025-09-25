@@ -62,7 +62,6 @@
   grid-area: input;
   padding: 14px 16px;
   border: 1px solid #d1d5db;
-  border-radius: 0;
   font-size: 16px;
   outline: none;
 }
@@ -76,7 +75,6 @@
   padding: 14px 16px;
   background: #fff;
   border: 1px solid #d1d5db;
-  border-radius: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -94,7 +92,6 @@
   width: 100%;
   background: #fff;
   border: 1px solid #d1d5db;
-  border-radius: 0;
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
   z-index: 30;
 }
@@ -128,7 +125,6 @@
   width: 260px;
   height: 64px;
   border: none;
-  border-radius: 0;
   font-weight: 700;
   font-size: 18px;
   cursor: pointer;
@@ -191,5 +187,30 @@
   .exp-btn {
     height: 60px;
     font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo {
+    width: 160px;
+  }
+  .main h1 {
+    font-size: 26px;
+  }
+  .shorten-btn {
+    width: 100%;
+    height: 52px;
+    font-size: 16px;
+  }
+  .url-input,
+  .dropdown-toggle {
+    font-size: 14px;
+    padding: 12px;
+  }
+  .sidebar h3 {
+    font-size: 16px;
+  }
+  .sidebar li {
+    font-size: 13px;
   }
 }
