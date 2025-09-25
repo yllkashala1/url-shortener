@@ -40,8 +40,8 @@
   padding: 32px 48px;
 }
 .main h1 {
-  font-size: 44px;
-  font-weight: 800;
+  font-size: 30px;
+  font-weight: 600;
   margin: 0 0 24px 0;
 }
 
@@ -64,6 +64,7 @@
   border: 1px solid #d1d5db;
   font-size: 16px;
   outline: none;
+  color: #888888;
 }
 
 .dropdown {
@@ -120,12 +121,12 @@
 
 .shorten-btn {
   grid-area: button;
-  background: #7b2cbf;
+  background: #92278F;
   color: #fff;
   width: 260px;
   height: 64px;
   border: none;
-  font-weight: 700;
+  font-weight: 500;
   font-size: 18px;
   cursor: pointer;
 }
@@ -213,4 +214,22 @@
   .sidebar li {
     font-size: 13px;
   }
+}
+
+.placeholder {
+  color: #888888;
+}
+
+.dropdown-toggle span {
+  color: #888888;
+  font-weight: 500;
+}
+
+.exp-btn {
+  color: #888888;
+}
+
+.exp-btn.active {
+  background: #f3e8ff;
+  color: #5a189a;
 }
