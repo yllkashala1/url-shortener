@@ -37,12 +37,12 @@
 }
 
 .main {
-  padding: 32px 48px;
+  padding: 32px 100px;
 }
 .main h1 {
   font-size: 30px;
   font-weight: 600;
-  margin: 0 0 24px 0;
+  margin: 0 0 50px 0;
 }
 
 .url-form {
@@ -123,11 +123,11 @@
   grid-area: button;
   background: #92278F;
   color: #fff;
-  width: 260px;
-  height: 64px;
+  width: 150px;
+  height: 50px;
   border: none;
   font-weight: 500;
-  font-size: 18px;
+  font-size: 16px;
   cursor: pointer;
 }
 .shorten-btn:hover {
@@ -180,7 +180,7 @@
     font-size: 34px;
   }
   .url-input {
-    font-size: 15px;
+    font-size: 20px;
   }
   .dropdown-toggle {
     font-size: 15px;
