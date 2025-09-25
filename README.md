@@ -19,7 +19,6 @@ Data is stored in-memory for simplicity (no external database required).
 ## Installation & Setup
 ### 1. Clone the repository
 git clone https://github.com/yllkashala1/url-shortener.git
-cd url-shortener
 
 ### 2. Backend
 cd backend
