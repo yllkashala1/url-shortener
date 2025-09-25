@@ -7,7 +7,7 @@
 
 .sidebar {
   background: #f3f3f3;
-  padding: 32px 24px;
+  padding: 32px 45px;
 }
 .logo {
   width: 210px;
@@ -32,7 +32,7 @@
   font-size: 14px;
 }
 .sidebar li a {
-  color: #2a3d9f;
+  color: #46a7e3;
   text-decoration: none;
 }
 
@@ -232,4 +232,20 @@
 .exp-btn.active {
   background: #f3e8ff;
   color: #5a189a;
+}
+
+.delete-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.delete-btn .material-icons {
+  font-size: 20px;
+  color: #6b7280;
+}
+
+.delete-btn:hover .material-icons {
+  color: #ef4444;
 }

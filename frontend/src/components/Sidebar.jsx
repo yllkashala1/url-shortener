@@ -1,4 +1,5 @@
 import React from "react";
+import { Trash2 } from "lucide-react";
 
 function Sidebar({ links, setLinks }) {
   const handleDelete = (shortUrl) => {
@@ -19,7 +20,9 @@ function Sidebar({ links, setLinks }) {
             <a href={link.shortUrl} target="_blank" rel="noreferrer">
               {link.shortUrl}
             </a>
-            <button onClick={() => handleDelete(link.shortUrl)}>🗑</button>
+            <button onClick={() => handleDelete(link.shortUrl)} className="delete-btn">
+              <Trash2 size={20} color="#6b7280" />
+            </button>
           </li>
         ))}
       </ul>
