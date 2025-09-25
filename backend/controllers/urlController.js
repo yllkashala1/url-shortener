@@ -1,9 +1,8 @@
-import Url from "../models/Url.js";
 import shortid from "shortid";
 
-export const createShortUrl = async (req, res) => {
-  console.log("BASE_URL:", process.env.BASE_URL);
+let urls = [];
 
+export const createShortUrl = (req, res) => {
   try {
     const { originalUrl, expirationMinutes } = req.body;
 
@@ -13,61 +12,49 @@ export const createShortUrl = async (req, res) => {
 
     const shortId = shortid.generate();
     const expiration = new Date(
-      Date.now() + (expirationMinutes ? expirationMinutes : 60) * 60000
+      Date.now() + (expirationMinutes ?? 60) * 60000
     );
 
-    const url = new Url({ originalUrl, shortId, expiration });
-    await url.save();
+    const url = { originalUrl, shortId, expiration, clicks: 0 };
+    urls.push(url);
 
-    return res.json({ shortUrl: `${process.env.BASE_URL}/${shortId}` });
+    return res.json({
+      shortUrl: `${process.env.BASE_URL || "http://localhost:4000"}/${shortId}`,
+    });
   } catch (err) {
     return res.status(500).json({ error: "Internal server error" });
   }
 };
 
-export const redirectUrl = async (req, res) => {
-  try {
-    const { shortId } = req.params;
-    const url = await Url.findOne({ shortId });
+export const redirectUrl = (req, res) => {
+  const { shortId } = req.params;
+  const url = urls.find((u) => u.shortId === shortId);
 
-    if (!url) {
-      return res.status(404).send("URL not found");
-    }
-
-    if (url.expiration && url.expiration < new Date()) {
-      return res.status(410).send("Link expired");
-    }
-
-    url.clicks += 1;
-    await url.save();
-
-    return res.redirect(url.originalUrl);
-  } catch (err) {
-    return res.status(500).send("Internal server error");
+  if (!url) {
+    return res.status(404).send("URL not found");
   }
+
+  if (url.expiration && url.expiration < new Date()) {
+    return res.status(410).send("Link expired");
+  }
+
+  url.clicks += 1;
+  return res.redirect(url.originalUrl);
 };
 
-export const deleteUrl = async (req, res) => {
-  try {
-    const { shortId } = req.params;
-    await Url.findOneAndDelete({ shortId });
-    return res.json({ message: "URL deleted successfully" });
-  } catch (err) {
-    return res.status(500).send("Error deleting URL");
-  }
+export const deleteUrl = (req, res) => {
+  const { shortId } = req.params;
+  urls = urls.filter((u) => u.shortId !== shortId);
+  return res.json({ message: "URL deleted successfully" });
 };
 
-export const stats = async (req, res) => {
-  try {
-    const { shortId } = req.params;
-    const url = await Url.findOne({ shortId });
+export const stats = (req, res) => {
+  const { shortId } = req.params;
+  const url = urls.find((u) => u.shortId === shortId);
 
-    if (!url) {
-      return res.status(404).send("URL not found");
-    }
-
-    return res.json({ clicks: url.clicks });
-  } catch (err) {
-    return res.status(500).send("Error retrieving stats");
+  if (!url) {
+    return res.status(404).send("URL not found");
   }
+
+  return res.json({ clicks: url.clicks });
 };
