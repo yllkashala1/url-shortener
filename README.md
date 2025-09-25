@@ -14,7 +14,7 @@ Data is stored in-memory for simplicity (no external database required).
 ## Tech Stack
 - Frontend: React (Vite), Axios, React QR Code
 - Backend: Node.js, Express
-- Deployment: Render (Backend), Netlify/Vercel (Frontend optional)
+- Deployment: Render (Backend)
 
 ## Installation & Setup
 ### 1. Clone the repository
