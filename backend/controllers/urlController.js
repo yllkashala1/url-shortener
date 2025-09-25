@@ -2,6 +2,8 @@ import Url from "../models/Url.js";
 import shortid from "shortid";
 
 export const createShortUrl = async (req, res) => {
+  console.log("BASE_URL:", process.env.BASE_URL);
+
   try {
     const { originalUrl, expirationMinutes } = req.body;
 

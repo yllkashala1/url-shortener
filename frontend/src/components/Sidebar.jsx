@@ -1,5 +1,6 @@
 import React from "react";
 import { Trash2 } from "lucide-react";
+import QRCode from "react-qr-code";
 
 function Sidebar({ links, setLinks }) {
   const handleDelete = (shortUrl) => {
@@ -14,15 +15,20 @@ function Sidebar({ links, setLinks }) {
         className="logo"
       />
       <h3>My shortened URLs</h3>
-      <ul>
+      <ul className="links-list">
         {links.map((link, i) => (
-          <li key={i}>
-            <a href={link.shortUrl} target="_blank" rel="noreferrer">
-              {link.shortUrl}
-            </a>
-            <button onClick={() => handleDelete(link.shortUrl)} className="delete-btn">
-              <Trash2 size={20} color="#6b7280" />
-            </button>
+          <li key={i} className="link-block">
+            <div className="link-row">
+              <a href={link.shortUrl} target="_blank" rel="noreferrer" className="link-text">
+                {link.shortUrl}
+              </a>
+              <button
+                onClick={() => handleDelete(link.shortUrl)}
+                className="delete-btn"
+              >
+                <Trash2 size={22} color="#6b7280" />
+              </button>
+            </div>
           </li>
         ))}
       </ul>

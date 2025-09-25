@@ -249,3 +249,26 @@
 .delete-btn:hover .material-icons {
   color: #ef4444;
 }
+
+.link-item {
+  margin-bottom: 16px;
+}
+
+.link-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.qr-preview {
+  margin-top: 24px;
+  text-align: left;
+}
+
+.qr-preview h4 {
+  margin-bottom: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #2a3d9f;
+}

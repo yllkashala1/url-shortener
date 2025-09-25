@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
+import QRCode from "react-qr-code";
 
 const OPTIONS = [
   { label: "1 minute", value: 1 },
@@ -13,6 +14,7 @@ function UrlForm({ setLinks }) {
   const [url, setUrl] = useState("");
   const [expiration, setExpiration] = useState(null);
   const [open, setOpen] = useState(false);
+  const [shortUrl, setShortUrl] = useState(null);
   const ddRef = useRef(null);
 
   const selected = OPTIONS.find((o) => o.value === expiration);
@@ -30,14 +32,20 @@ function UrlForm({ setLinks }) {
     e.preventDefault();
     if (!url) return;
     try {
-      const res = await axios.post("http://localhost:4000/api/url/shorten", {
-        originalUrl: url,
-        expirationMinutes: expiration ?? 60,
-      });
+      const res = await axios.post(
+        "https://url-shortener-y07w.onrender.com/api/url/shorten",
+        {
+          originalUrl: url,
+          expirationMinutes: expiration ?? 60,
+        }
+      );
+
       setLinks((prev) => [
         ...prev,
         { shortUrl: res.data.shortUrl, originalUrl: url, clicks: 0 },
       ]);
+
+      setShortUrl(res.data.shortUrl);
       setUrl("");
     } catch (err) {
       console.error(err);
@@ -50,45 +58,56 @@ function UrlForm({ setLinks }) {
   };
 
   return (
-    <form className="url-form" onSubmit={handleSubmit}>
-      <input
-        className="url-input"
-        type="text"
-        placeholder="Paste the URL to be shortened"
-        value={url}
-        onChange={(e) => setUrl(e.target.value)}
-      />
+    <>
+      <form className="url-form" onSubmit={handleSubmit}>
+        <input
+          className="url-input"
+          type="text"
+          placeholder="Paste the URL to be shortened"
+          value={url}
+          onChange={(e) => setUrl(e.target.value)}
+        />
 
-      <div className="dropdown" ref={ddRef}>
-        <button
-          type="button"
-          className="dropdown-toggle"
-          onClick={() => setOpen((s) => !s)}
-        >
-          <span>{label}</span>
-          <span className="caret">▾</span>
-        </button>
+        <div className="dropdown" ref={ddRef}>
+          <button
+            type="button"
+            className="dropdown-toggle"
+            onClick={() => setOpen((s) => !s)}
+          >
+            <span>{label}</span>
+            <span className="caret">▾</span>
+          </button>
 
-        {open && (
-          <div className="exp-panel" onClick={(e) => e.stopPropagation()}>
-            <div className="exp-options">
-              {OPTIONS.map((o) => (
-                <button
-                  type="button"
-                  key={o.value}
-                  className={"exp-btn" + (expiration === o.value ? " active" : "")}
-                  onClick={() => pick(o.value)}
-                >
-                  {o.label}
-                </button>
-              ))}
+          {open && (
+            <div className="exp-panel" onClick={(e) => e.stopPropagation()}>
+              <div className="exp-options">
+                {OPTIONS.map((o) => (
+                  <button
+                    type="button"
+                    key={o.value}
+                    className={"exp-btn" + (expiration === o.value ? " active" : "")}
+                    onClick={() => pick(o.value)}
+                  >
+                    {o.label}
+                  </button>
+                ))}
+              </div>
             </div>
-          </div>
-        )}
-      </div>
+          )}
+        </div>
 
-      <button type="submit" className="shorten-btn">Shorten URL</button>
-    </form>
+        <button type="submit" className="shorten-btn">
+          Shorten URL
+        </button>
+      </form>
+
+      {shortUrl && (
+        <div className="qr-preview">
+          <h4>QR Code:</h4>
+          <QRCode value={shortUrl} size={160} />
+        </div>
+      )}
+    </>
   );
 }
 

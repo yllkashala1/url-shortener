@@ -3,23 +3,27 @@ import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
 import urlRoutes from "./routes/urlRoutes.js";
-import { redirectUrl } from "./controllers/urlController.js"; // ⬅️ Importo redirectUrl
+import { redirectUrl } from "./controllers/urlController.js";
 
 dotenv.config();
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "*",
+    methods: ["GET", "POST", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type"],
+  })
+);
+
 app.use(express.json());
 
-// Test route
 app.get("/hello", (req, res) => {
   res.send("Hello from URL Shortener 🚀");
 });
 
-// API routes
 app.use("/api/url", urlRoutes);
 
-// Redirect direkt nga shortId
 app.get("/:shortId", redirectUrl);
 
 const PORT = process.env.PORT || 5000;
