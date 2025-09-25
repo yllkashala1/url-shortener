@@ -17,15 +17,17 @@ app.use(
 
 app.use(express.json());
 
+app.get("/", (req, res) => {
+  res.send("URL Shortener Backend is running 🚀");
+});
+
 app.get("/hello", (req, res) => {
   res.send("Hello from URL Shortener 🚀");
 });
 
 app.use("/api/url", urlRoutes);
 
-app.get("/", (req, res) => {
-  res.send("URL Shortener Backend is running 🚀");
-});
+app.get("/:shortId", redirectUrl);
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
