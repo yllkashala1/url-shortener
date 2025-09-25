@@ -23,7 +23,9 @@ app.get("/hello", (req, res) => {
 
 app.use("/api/url", urlRoutes);
 
-app.get("/:shortId", redirectUrl);
+app.get("/", (req, res) => {
+  res.send("URL Shortener Backend is running 🚀");
+});
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
